@@ -7,16 +7,28 @@ module.exports = {
     connection: {
       filename: './car-dealer.db3'
     },
-    useNullAsDefault: true
+    useNullAsDefault: true,
+    migrations: {
+      directory: "./data/migrations"
+    },
+    seeds: {
+      directory: "./data/seeds"
+    }
   },
 
-  
-  production:  {
+
+  production: {
     client: 'sqlite3',
     connection: {
       filename: './car-dealer-production.db3'
     },
-    useNullAsDefault: true
+    useNullAsDefault: true,
+    migrations: {
+      directory: "./data/migrations"
+    },
+    seeds: {
+      directory: "./data/seeds"
+    }
   }
 
 };
