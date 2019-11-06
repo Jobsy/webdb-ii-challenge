@@ -21,33 +21,34 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
     const { id } = req.params;
+    const { url } = req;
 
     dB.findById(id)
         .then((cars) => {
 
             if (cars.length === 0) {
-                res.status(404).json({ message: "The post with the specified ID does not exist." })
+                res.status(404).json({ message: "The car with the specified ID does not exist." })
             }
-            res.status(200).json({ cars: cars })
+            res.status(200).json({ carInfo: cars, url: url, operation: "GET"  })
         })
         .catch((err) => {
-            res.status(500).json({ error: "The post information could not be retrieved." + err })
+            res.status(500).json({ error: "The car information could not be retrieved." + err })
         })
 })
 
 router.post("/", (req, res) => {
-    const post = req.body;
+    const car = req.body;
     const { VIN, make, model, mileage,  transmissionType, status } = req.body;
     const { url } = req;
     if (!VIN || !make || !model || !mileage) {
-        res.status(400).json({ errorMessage: "Please provide VIN, make, model, and mileage for the car." })
+        res.status(400).json({ errorMessage: "Please provide atleast VIN, make, model, and mileage for the car." })
     }
-    dB.insert(post)
+    dB.insert(car)
         .then(() => {
-            res.status(201).json({ postedContent: post, url: url, operation: "POST" })
+            res.status(201).json({ carInfo: car, url: url, operation: "POST" })
         })
-        .catch(() => {
-            res.status(500).json({ error: "There was an error while saving the post to the database" })
+        .catch((err) => {
+            res.status(500).json({ error: "There was an error while saving the car to the database" + err})
         })
 });
 
