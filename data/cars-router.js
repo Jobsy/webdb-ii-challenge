@@ -53,5 +53,27 @@ router.post("/", (req, res) => {
 });
 
 
+router.put("/:id", (req, res) => {
+    const car = req.body;
+    const { VIN, make, model, mileage,  transmissionType, status } = req.body;
+    const { url } = req;
+    const { id } = req.params;
+
+    if (!VIN || !make || !model || !mileage) {
+        res.status(400).json({ errorMessage: "Please provide atleast VIN, make, model, and mileage for the car." })
+    }
+    dB.update(id, car)
+        .then((carsVIN) => {
+            if (carsVIN) {
+                res.status(200).json({ updatedContent: car, url: url, operation: "POST" })
+            }
+            res.status(404).json({ message: "The post with the specified ID does not exist." })
+        })
+        .catch((err) => {
+            res.status(500).json({ error: "The post information could not be modified." + err })
+        })
+})
+
+
 
 module.exports = router;
