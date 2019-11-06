@@ -7,7 +7,7 @@ module.exports = {
     find,
     findById,
     insert,
-    // update,
+    update,
     // remove,
   };
   
@@ -23,5 +23,11 @@ module.exports = {
     return db('cars')
       .insert(car)
       .then(ids => ({ id: ids[0] }));
+  }
+
+  function update(id, car) {
+    return db('cars')
+      .where('id', Number(id))
+      .update(car);
   }
   
