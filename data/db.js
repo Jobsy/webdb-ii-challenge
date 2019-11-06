@@ -16,5 +16,5 @@ module.exports = {
   }
 
   function findById(id) {
-    return db('posts').where({ id: Number(id) });
+    return db('cars').where({ id: Number(id) });
   }
