@@ -65,12 +65,12 @@ router.put("/:id", (req, res) => {
     dB.update(id, car)
         .then((carsVIN) => {
             if (carsVIN) {
-                res.status(200).json({ updatedContent: car, url: url, operation: "POST" })
+                res.status(200).json({ updatedCarInfo: car, url: url, operation: "POST" })
             }
-            res.status(404).json({ message: "The post with the specified ID does not exist." })
+            res.status(404).json({ message: "The car with the specified ID does not exist." })
         })
         .catch((err) => {
-            res.status(500).json({ error: "The post information could not be modified." + err })
+            res.status(500).json({ error: "The car information could not be modified." + err })
         })
 })
 
@@ -80,12 +80,12 @@ router.delete("/:id", (req, res) => {
     dB.remove(id)
         .then((rmCar) => {
             if (rmCar === 0) {
-                res.status(404).json({ message: "The post with the specified ID does not exist." })
+                res.status(404).json({ message: "The car with the specified ID does not exist." })
             }
-            res.status(200).json({ removedPost: `post with id: ${id} deleted` })
+            res.status(200).json({ removedPost: `car with id: ${id} deleted` })
         })
-        .catch(() => {
-            res.status(500).json({ error: "The post could not be removed" })
+        .catch((err) => {
+            res.status(500).json({ error: "The car could not be removed" + err})
         })
 })
 
