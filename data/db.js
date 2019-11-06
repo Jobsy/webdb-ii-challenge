@@ -5,10 +5,10 @@ const db = knex(knexConfig.development);
 
 module.exports = {
     find,
-    findById,
-    insert,
-    update,
-    remove,
+    // findById,
+    // insert,
+    // update,
+    // remove,
   };
   
   function find() {
