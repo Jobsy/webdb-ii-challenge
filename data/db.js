@@ -8,7 +8,7 @@ module.exports = {
     findById,
     insert,
     update,
-    // remove,
+    remove,
   };
   
   function find() {
@@ -29,5 +29,11 @@ module.exports = {
     return db('cars')
       .where('id', Number(id))
       .update(car);
+  }
+
+  function remove(id) {
+    return db('cars')
+      .where('id', Number(id))
+      .del();
   }
   
