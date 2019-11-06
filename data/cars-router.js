@@ -35,6 +35,22 @@ router.get("/:id", (req, res) => {
         })
 })
 
+router.post("/", (req, res) => {
+    const post = req.body;
+    const { VIN, make, model, mileage,  transmissionType, status } = req.body;
+    const { url } = req;
+    if (!VIN || !make || !model || !mileage) {
+        res.status(400).json({ errorMessage: "Please provide VIN, make, model, and mileage for the car." })
+    }
+    dB.insert(post)
+        .then(() => {
+            res.status(201).json({ postedContent: post, url: url, operation: "POST" })
+        })
+        .catch(() => {
+            res.status(500).json({ error: "There was an error while saving the post to the database" })
+        })
+});
+
 
 
 module.exports = router;
